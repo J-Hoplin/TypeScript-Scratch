@@ -1,11 +1,11 @@
 {
   "compilerOptions": {
-    "lib": ["ES2015"], // TSC가 코드 실행 환경에서 이용할 수 있다고 가정하는 API
+    "lib": ["ES2020"], // TSC가 코드 실행 환경에서 이용할 수 있다고 가정하는 API
     "module": "CommonJS", // TSC가 코들르 컴파일할 대상 모듈 시스템
     "outDir": "dist", // 생성된 자바스크립트 코드를 출력할 디렉토리
     "sourceMap": true, 
     "strict": true, // 엄격검사에 대해
-    "target": "ES2015",// TSC가 코드를 컴파일할 JS 버전
+    "target": "ES2020",// TSC가 코드를 컴파일할 JS 버전
     "noImplicitAny": true // 암묵적인 Any타입이 나타났을때 에외를 일으킬 수 있도록 해준다. 이는 strict를 true로 해주었다면 해줄 필요 없는 옵션이다.
   },
   "include": [
