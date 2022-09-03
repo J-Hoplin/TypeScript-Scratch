@@ -1,0 +1,7 @@
+# OS
+.DS_STORE
+
+# package-lock
+package-lock.json
+#node modules
+node_modules
