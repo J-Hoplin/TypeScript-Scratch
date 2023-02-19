@@ -87,3 +87,7 @@ function trueOrNull(isTrue: boolean): trueOrNullReturn {
     }
     return false
 }
+
+
+let h1 = null;
+const g1 = [3];

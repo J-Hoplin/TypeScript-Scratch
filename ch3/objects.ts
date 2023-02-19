@@ -59,7 +59,7 @@ a2 = { b: 2, c: "hello", 30: true, 40: true, 50: true, 60: true, 70: true, 80: t
  */
 
 let airplaneSeat: {
-    [seatNumber: string]: string
+    [seatNumber: (string | number)]: (string | boolean),
 } = {
     "34D": "Hoplin",
     "34E": "Hoplin2"
