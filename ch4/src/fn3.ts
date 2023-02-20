@@ -74,3 +74,154 @@ function map2<T, U>(array: T[], f: (item: T) => U): U[] {
     }
     return result;
 }
+
+/**
+ * 한정된 다형성
+ * 
+ * 만약 U 타입은 적어도 T 타입을 포함하는 기능이 필요하다 가정한다
+ * 
+ * 이런 상황을 U가 T의 상한 한계(upper bound)라고 한다
+ */
+
+
+type TreeNode = {
+    value: string
+}
+
+type LeafNode = TreeNode & {
+    isLeaf: true
+}
+type InnerNode = TreeNode & {
+    // 튜플로 고정
+    children: [TreeNode] | [TreeNode, TreeNode]
+}
+
+
+let t1: TreeNode = {
+    value: 'a'
+}
+
+let t2: LeafNode = {
+    value: 'b',
+    isLeaf: true,
+}
+
+let t3: InnerNode = {
+    value: 'c',
+    children: [t1, t2]
+}
+
+
+function mapNode<T extends TreeNode>(
+    node: T,
+    f: (value: string) => string
+): T {
+    return {
+        ...node,
+        value: f(node.value)
+    }
+}
+
+let tn: TreeNode = {
+    value: 'a'
+}
+
+mapNode(tn, x => x);
+
+/**
+ * 여러 제한을 적용한 다형성
+ * 
+ * 여러 제한을 주어야 하는 경우에는 인터섹션 연산자 (&)를 사용하여 여러개를 붙이면 된다.ㄴ
+ * 
+ */
+
+type HasSides = {
+    numberOfSides: number
+}
+
+type SidesHaveLength = {
+    sideLength: number
+}
+
+// 여기서 T대신 Shape 사용
+function logPermiter<Shape extends HasSides & SidesHaveLength>(s: Shape) {
+    console.log(s.numberOfSides * s.sideLength);
+    return s;
+}
+
+type Square = HasSides & SidesHaveLength;
+let square: Square = {
+    numberOfSides: 10,
+    sideLength: 20
+}
+
+logPermiter(square)
+
+/**
+ * 가변 인수 함수에서도 한정된 다형성을 사용할 수 있다
+ * 
+ */
+
+
+const fill = <T extends unknown>(length: number, value: T): T[] => {
+    return Array.from({
+        length
+    }, () => value)
+}
+
+function call<T extends unknown[], R>(
+    f: (...args: T) => R,
+    ...args: T
+): R {
+    console.log(args)
+    return f(...args);
+}
+
+call(fill, 10, 30)
+
+type Reserved = {
+    value: string
+};
+
+type Reservation2 = {
+    (destination: string): Reserved
+    (from: Date, to: Date, destination: string): Reserved
+    (from: Date, destination: string): Reserved
+}
+
+let reserve3: Reservation2 = (
+    fromOrDestination: Date | string,
+    toOrDestinatoin?: Date | string,
+    destination?: string
+) => {
+    let t: Reserved = {
+        value: 'test'
+    }
+    return t;
+}
+
+type pp2 = string;
+
+const a10: pp2 = "pl";
+
+let reserve4 = (): pp2 => {
+    return "hi";
+}
+
+// excersice4
+
+// 튜플 이항배열 최소 길이 보장 성질 활용
+function call2<T extends [unknown, string, ...unknown[]], R>(
+    f: (...args: T) => R,
+    ...args: T
+) {
+
+}
+
+//excersice5
+
+const is = <T>(value1: T, ...value2: [T, ...T[]]) => {
+    return
+}
+
+is([10], [12, 3, 4], [5, 6, 7, 8])
