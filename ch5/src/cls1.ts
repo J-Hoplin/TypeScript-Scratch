@@ -11,6 +11,7 @@
  * 
  * 이 세가지 접근제어자가 있다.
  * 
+ * 
  */
 
 /**
@@ -111,7 +112,9 @@ class test1 {
 }
 
 /**
- * super를 통해서 부모클래스의 메소드만 접근가능하고, 프로퍼티는 접근 불가능하다.
+ * super를 통해서 부모클래스의 메소드만 접근가능하고, 부모클래스의 프로퍼티는 접근 불가능하다.
+ * 
+ * super()키워드를 생성자에서 생성할때 부모클래스의 프로퍼티가 모두 자손 클래스의 인스턴스인 this에 바인딩 되기 때문이다.
  * 
  */
 
@@ -121,11 +124,13 @@ class test2 extends test1 {
         console.log(this)
     }
     public main(): void {
+        // console.log(super.t1) // undefined
         console.log(this.t1);
     }
 }
 
 const tt = new test2();
+console.log("Main()")
 tt.main();
 
 let set1 = new Set();
