@@ -272,3 +272,41 @@ type testi1 = IsString<string>
 type testi2 = IsString<number>
 
 
+interface Greetable{
+    name: string;
+    greet(phrase: string):void;
+}
+
+let user1:Greetable;
+
+user1 = {
+    name: 'max',
+    age: 30,
+    greet(phrase: string){
+        
+    }
+} as Greetable
+
+type fntype1<T> = {
+    (from: string,to:string):T
+    (from: number):T
+}
+
+const intfunc:fntype1<string> = (from: string | number, to?:string) => {
+    return 'a'
+}
+
+function intfunc2(from: number,destination?:string): string
+function intfunc2(from: boolean, to?:number):number
+function intfunc2(from: number | boolean, toOrDestination?:string | number):string | number{
+    if(typeof from === 'number'){
+        return 'a'
+    }else{
+        return 10;
+    }
+}
+
+intfunc('a','b')
+
+console.log(intfunc2(10))
+
